@@ -43,7 +43,18 @@ const CharacterCreation: React.FC<CharacterCreationProps> = ({ world, onCharacte
       wisdom: randomStats.wisdom,
       charisma: randomStats.charisma
     });
-    setPointsRemaining(0);
+    
+    // Calculate points remaining based on the new stats
+    const totalPointsUsed = Object.values({
+      strength: randomStats.strength,
+      dexterity: randomStats.dexterity,
+      constitution: randomStats.constitution,
+      intelligence: randomStats.intelligence,
+      wisdom: randomStats.wisdom,
+      charisma: randomStats.charisma
+    }).reduce((sum, stat) => sum + (stat - 8), 0);
+    
+    setPointsRemaining(27 - totalPointsUsed);
   };
 
   const canCreateCharacter = () => {
@@ -162,48 +173,82 @@ const CharacterCreation: React.FC<CharacterCreationProps> = ({ world, onCharacte
           <div className="space-y-6">
             {/* Stats */}
             <div>
-              <div className="flex justify-between items-center mb-2">
+              <div className="flex justify-between items-center mb-3">
                 <label className="text-lg font-pixel text-amber-900">
                   📊 Ability Scores
                 </label>
-                <div className="text-sm font-pixel text-red-800">
+                <div className={`text-sm font-pixel px-3 py-1 rounded border-2 ${
+                  pointsRemaining === 0 
+                    ? 'text-green-800 bg-green-100 border-green-400' 
+                    : pointsRemaining > 0 
+                      ? 'text-blue-800 bg-blue-100 border-blue-400'
+                      : 'text-red-800 bg-red-100 border-red-400'
+                }`}>
                   Points: {pointsRemaining}
                 </div>
               </div>
-              <div className="space-y-2">
-                {Object.entries(stats).map(([statName, value]) => (
-                  <div key={statName} className="flex items-center justify-between">
-                    <span className="font-pixel text-sm text-amber-800 capitalize w-20">
-                      {statName.slice(0, 3)}:
-                    </span>
-                    <div className="flex items-center space-x-2">
-                      <button
-                        onClick={() => handleStatChange(statName as keyof Stats, value - 1)}
-                        disabled={value <= 8 || pointsRemaining <= 0}
-                        className="w-6 h-6 pixel-button text-xs"
-                      >
-                        -
-                      </button>
-                      <span className="w-8 text-center font-pixel text-sm text-amber-900">
-                        {value}
+              <div className="space-y-3">
+                {Object.entries(stats).map(([statName, value]) => {
+                  const modifier = Math.floor((value - 10) / 2);
+                  const modifierString = modifier >= 0 ? `+${modifier}` : `${modifier}`;
+                  
+                  return (
+                    <div key={statName} className="flex items-center justify-between bg-amber-50 p-2 rounded border-2 border-amber-200">
+                      <span className="font-pixel text-sm text-amber-800 capitalize w-16 text-left">
+                        {statName.slice(0, 3)}:
                       </span>
-                      <button
-                        onClick={() => handleStatChange(statName as keyof Stats, value + 1)}
-                        disabled={value >= 15 || pointsRemaining <= 0}
-                        className="w-6 h-6 pixel-button text-xs"
-                      >
-                        +
-                      </button>
+                      <div className="flex items-center space-x-3">
+                        <button
+                          onClick={() => handleStatChange(statName as keyof Stats, value - 1)}
+                          disabled={value <= 8}
+                          className="w-8 h-8 pixel-button text-xs flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          -
+                        </button>
+                        <div className="text-center">
+                          <span className="w-10 text-center font-pixel text-sm text-amber-900 bg-amber-100 py-1 px-2 rounded border border-amber-300 block">
+                            {value}
+                          </span>
+                          <span className="text-xs font-pixel text-amber-700 mt-1 block">
+                            ({modifierString})
+                          </span>
+                        </div>
+                        <button
+                          onClick={() => handleStatChange(statName as keyof Stats, value + 1)}
+                          disabled={value >= 15 || pointsRemaining <= 0}
+                          className="w-8 h-8 pixel-button text-xs flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          +
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
-              <button
-                onClick={handleRandomStats}
-                className="w-full mt-2 pixel-button text-xs"
-              >
-                🎲 Random Stats
-              </button>
+              <div className="flex gap-2 mt-3">
+                <button
+                  onClick={handleRandomStats}
+                  className="flex-1 pixel-button text-xs bg-gradient-to-b from-blue-400 to-blue-600 border-blue-800 text-blue-900"
+                >
+                  🎲 Random Stats
+                </button>
+                <button
+                  onClick={() => {
+                    setStats({
+                      strength: 8,
+                      dexterity: 8,
+                      constitution: 8,
+                      intelligence: 8,
+                      wisdom: 8,
+                      charisma: 8
+                    });
+                    setPointsRemaining(27);
+                  }}
+                  className="flex-1 pixel-button text-xs bg-gradient-to-b from-gray-400 to-gray-600 border-gray-800 text-gray-900"
+                >
+                  🔄 Reset
+                </button>
+              </div>
             </div>
 
             {/* Personality */}

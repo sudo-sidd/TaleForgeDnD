@@ -5,6 +5,7 @@ A dynamic, AI-driven Dungeons & Dragons web application that provides an immersi
 ## Features
 
 ### Core Gameplay
+
 - **World Selection**: Choose from 10 unique fantasy worlds with rich lore and plot hooks
 - **Character Creation**: Full D&D-inspired character creation with races, classes, stats, personalities, and quirks
 - **AI Dungeon Master**: Dynamic storytelling powered by LLM integration
@@ -12,6 +13,7 @@ A dynamic, AI-driven Dungeons & Dragons web application that provides an immersi
 - **Party Management**: AI-generated balanced party members
 
 ### UI/UX
+
 - **Pixel Art Theme**: Retro 16-bit aesthetic with fantasy elements
 - **Responsive Design**: Works on desktop and mobile devices
 - **Parchment-style Interface**: Immersive medieval fantasy theming
@@ -28,17 +30,20 @@ A dynamic, AI-driven Dungeons & Dragons web application that provides an immersi
 ## Getting Started
 
 ### Prerequisites
-- Node.js 18+ 
+
+- Node.js 18+
 - npm or yarn
 
 ### Installation
 
 1. Install dependencies:
+
 ```bash
 npm install
 ```
 
 2. Start the development server:
+
 ```bash
 npm run dev
 ```
@@ -48,32 +53,24 @@ npm run dev
 ## Development Phases
 
 ### Phase 1: MVP (Current)
-- [x] Project setup and basic structure
-- [x] World selection with static data
-- [x] Character creation system
-- [x] Basic UI with pixel art styling
+
+- [X] Project setup and basic structure
+- [X] World selection with static data
+- [X] Character creation system
+- [X] Basic UI with pixel art styling
 - [ ] Dice rolling mechanics
 - [ ] AI integration (Grok API)
 
 ### Phase 2: Enhanced Gameplay
+
 - [ ] AI-generated party members
 - [ ] Dynamic world images
 - [ ] Free-form player actions
 - [ ] Advanced UI animations
 
 ### Phase 3: Polish and Scale
+
 - [ ] Side quests and expanded AI DM
 - [ ] Enhanced pixel art assets
 - [ ] Performance optimization
 - [ ] Accessibility improvements
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License.

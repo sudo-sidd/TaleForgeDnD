@@ -1,10 +1,11 @@
 @import "tailwindcss";
 
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
 
 :root {
   font-family: 'Press Start 2P', cursive;
-  line-height: 1.5;
+  line-height: 1.6;
   font-weight: 400;
   
   color-scheme: light dark;
@@ -15,58 +16,227 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  image-rendering: pixelated;
+}
+
+* {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
 }
 
 body {
   margin: 0;
+  padding: 20px;
   min-width: 320px;
   min-height: 100vh;
-  background: linear-gradient(135deg, #f7f3e9 0%, #e8dcc0 100%);
+  background: 
+    radial-gradient(circle at 25% 25%, rgba(101, 67, 33, 0.1) 0%, transparent 25%),
+    radial-gradient(circle at 75% 75%, rgba(139, 69, 19, 0.1) 0%, transparent 25%),
+    linear-gradient(135deg, #8b5a2b 0%, #deb887 20%, #f5deb3 50%, #deb887 80%, #8b5a2b 100%);
+  background-attachment: fixed;
+  position: relative;
 }
 
-/* Custom pixel art styles */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23654321' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23654321' fill-opacity='0.02'%3E%3Cpath d='M20 20c0 11.046-8.954 20-20 20s-20-8.954-20-20 8.954-20 20-20 20 8.954 20 20zm-30-2c8.837 0 16-7.163 16-16S-1.163-12-10-12s-16 7.163-16 16 7.163 16 16 16z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Enhanced pixel art styles for quest book aesthetic */
+.font-pixel {
+  font-family: 'Press Start 2P', cursive;
+  line-height: 1.6;
+  letter-spacing: 1px;
+}
+
+.font-medieval {
+  font-family: 'MedievalSharp', cursive;
+  line-height: 1.4;
+}
+
 .pixel-border {
-  border: 4px solid #2d1810;
-  border-image: url("data:image/svg+xml,%3csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m2,2 h96 v96 h-96 z' fill='none' stroke='%23333' stroke-width='4'/%3e%3c/svg%3e") 4;
+  border: 6px solid #2d1810;
+  border-image: 
+    url("data:image/svg+xml,%3csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M8,8 L92,8 L92,92 L8,92 Z M4,4 L96,4 L96,96 L4,96 Z' fill='none' stroke='%232d1810' stroke-width='2'/%3e%3c/svg%3e") 6;
+  position: relative;
+}
+
+.pixel-border-left {
+  border-left: 6px solid #2d1810;
+  border-top: 6px solid #2d1810;
+  border-bottom: 6px solid #2d1810;
+}
+
+.pixel-border::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border: 3px solid #654321;
+  border-radius: 2px;
+  z-index: -1;
+}
+
+.pixel-shadow {
+  box-shadow: 
+    6px 6px 0px #654321,
+    12px 12px 0px rgba(101, 67, 33, 0.3),
+    0 0 20px rgba(0, 0, 0, 0.1) inset;
+}
+
+.quest-book-page {
+  background: 
+    linear-gradient(135deg, #f4e4bc 0%, #e8d5a3 50%, #dcc48a 100%);
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.quest-book-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      rgba(139, 69, 19, 0.1) 0px,
+      rgba(139, 69, 19, 0.1) 1px,
+      transparent 1px,
+      transparent 25px
+    );
+  pointer-events: none;
+}
+
+.quest-book-page::after {
+  content: '';
+  position: absolute;
+  left: 50px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: 
+    repeating-linear-gradient(
+      to bottom,
+      #cd853f 0px,
+      #cd853f 8px,
+      transparent 8px,
+      transparent 16px
+    );
+  opacity: 0.3;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .pixel-button {
-  background: linear-gradient(to bottom, #fbbf24, #d97706);
-  border: 4px solid #92400e;
-  color: #78350f;
+  background: linear-gradient(145deg, #fbbf24 0%, #d97706 50%, #92400e 100%);
+  border: none;
+  color: #451a03;
   font-family: 'Press Start 2P', cursive;
-  font-size: 12px;
-  image-rendering: pixelated;
-  transition: all 0.1s ease-in-out;
-  cursor: pointer;
-  padding: 8px 16px;
+  font-size: 10px;
+  padding: 12px 20px;
   position: relative;
-  outline: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 
+    0 4px 0 #78350f,
+    0 8px 0 #451a03,
+    0 12px 8px rgba(0, 0, 0, 0.3);
+}
+
+.pixel-button::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(145deg, #92400e, #451a03);
+  z-index: -1;
+  border-radius: 2px;
 }
 
 .pixel-button:hover:not(:disabled) {
-  background: linear-gradient(to bottom, #fcd34d, #f59e0b);
-  border-color: #b45309;
-  transform: scale(1.05);
+  background: linear-gradient(145deg, #fcd34d 0%, #f59e0b 50%, #d97706 100%);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 0 #78350f,
+    0 10px 0 #451a03,
+    0 14px 12px rgba(0, 0, 0, 0.4);
 }
 
 .pixel-button:active:not(:disabled) {
-  background: linear-gradient(to bottom, #f59e0b, #b45309);
-  transform: scale(0.95);
+  transform: translateY(4px);
+  box-shadow: 
+    0 0 0 #78350f,
+    0 4px 0 #451a03,
+    0 8px 4px rgba(0, 0, 0, 0.2);
 }
 
 .pixel-button:disabled {
-  background: linear-gradient(to bottom, #d1d5db, #9ca3af);
-  border-color: #6b7280;
-  color: #4b5563;
+  background: linear-gradient(145deg, #d1d5db, #9ca3af);
+  color: #6b7280;
   cursor: not-allowed;
   opacity: 0.6;
+  box-shadow: 
+    0 2px 0 #6b7280,
+    0 4px 0 #4b5563;
 }
 
 .parchment-bg {
-  background-color: #f7f3e9;
+  background: 
+    radial-gradient(circle at 30% 20%, rgba(205, 133, 63, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 80%, rgba(160, 82, 45, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 20% 70%, rgba(139, 69, 19, 0.06) 0%, transparent 50%),
+    linear-gradient(135deg, #f9f1e6 0%, #f0e6d2 25%, #e8dcc6 50%, #ddd1b8 75%, #d4c4a8 100%);
+  position: relative;
+}
+
+.parchment-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-image: 
-    radial-gradient(circle at 20% 50%, rgba(180, 150, 120, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(160, 130, 100, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 40% 80%, rgba(140, 120, 90, 0.1) 0%, transparent 50%);
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-opacity='0.03'%3E%3Cpolygon fill='%23654321' points='50 0 60 40 100 50 60 60 50 100 40 60 0 50 40 40'/%3E%3C/g%3E%3C/svg%3e");
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.ornate-border {
+  border: 8px solid transparent;
+  border-image: 
+    url("data:image/svg+xml,%3csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3e%3cdefs%3e%3cpattern id='border-pattern' x='0' y='0' width='20' height='20' patternUnits='userSpaceOnUse'%3e%3crect x='0' y='0' width='20' height='20' fill='%23654321'/%3e%3crect x='2' y='2' width='16' height='16' fill='%23deb887'/%3e%3crect x='4' y='4' width='12' height='12' fill='%23654321'/%3e%3crect x='6' y='6' width='8' height='8' fill='%23deb887'/%3e%3c/pattern%3e%3c/defs%3e%3crect width='100' height='100' fill='url(%23border-pattern)'/%3e%3c/svg%3e") 8;
+}
+
+.title-glow {
+  text-shadow: 
+    0 0 5px rgba(251, 191, 36, 0.8),
+    0 0 10px rgba(251, 191, 36, 0.6),
+    0 0 15px rgba(251, 191, 36, 0.4),
+    2px 2px 0px rgba(120, 53, 15, 0.8);
 }

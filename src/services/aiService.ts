@@ -1,3 +1,5 @@
+// Updated to use Vite's `import.meta.env` for environment variables.
+
 import type { Character, World, AIResponse, Quest, Stats } from '../types/game';
 
 // AI Service for interacting with Grok API
@@ -6,7 +8,7 @@ export class AIService {
   private baseUrl: string;
 
   constructor(apiKey?: string) {
-    this.apiKey = apiKey || process.env.REACT_APP_GROK_API_KEY || '';
+    this.apiKey = apiKey || import.meta.env.VITE_GROK_API_KEY || '';
     this.baseUrl = 'https://api.x.ai/v1'; // Grok API endpoint
   }
 
@@ -98,12 +100,20 @@ export class AIService {
         })
       });
 
-      const data = await response.json();
-      const aiText = data.choices[0]?.message?.content || '';
+      if (!response.ok) {
+        throw new Error(`API request failed: ${response.statusText}`);
+      }
 
-      return this.parsePartyResponse(aiText) || this.getFallbackParty(playerCharacter, world, count);
+      const data = await response.json();
+      const party = this.parsePartyResponse(data);
+
+      if (!party) {
+        throw new Error('Failed to parse party response');
+      }
+
+      return party;
     } catch (error) {
-      console.error('Party Generation Error:', error);
+      console.error('AI Service Error:', error);
       return this.getFallbackParty(playerCharacter, world, count);
     }
   }

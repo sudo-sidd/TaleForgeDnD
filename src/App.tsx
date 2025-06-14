@@ -4,7 +4,6 @@ import WorldSelection from './components/WorldSelection'
 import CharacterCreation from './components/CharacterCreation'
 import PartyGeneration from './components/PartyGeneration'
 import GameScreen from './components/GameScreen'
-import './App.css'
 
 function App() {
   const [gameState, setGameState] = useState<GameState>({
@@ -12,6 +11,8 @@ function App() {
     narrative: [],
     availableActions: []
   });
+
+  console.log('App rendering, gamePhase:', gameState.gamePhase);
 
   const handleWorldSelected = (world: World) => {
     setGameState(prev => ({
@@ -41,13 +42,33 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-amber-100 parchment-bg">
-      <div className="container mx-auto px-4 py-8">
-        <header className="text-center mb-8">
-          <h1 className="text-4xl font-pixel text-amber-900 mb-4 drop-shadow-lg">
+    <div style={{
+      minHeight: '100vh',
+      background: 'linear-gradient(to bottom, #fffbeb, #fef3c7)',
+      fontFamily: '"Press Start 2P", cursive'
+    }}>
+      <div style={{
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '32px 16px'
+      }}>
+        <header style={{
+          textAlign: 'center',
+          marginBottom: '32px'
+        }}>
+          <h1 style={{
+            fontSize: '32px',
+            color: '#78350f',
+            marginBottom: '16px',
+            textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
+          }}>
             ⚔️ AI D&D ADVENTURE ⚔️
           </h1>
-          <p className="text-lg text-amber-800 font-pixel">
+          <p style={{
+            fontSize: '18px',
+            color: '#92400e',
+            fontFamily: '"Press Start 2P", cursive'
+          }}>
             Where Magic Meets Technology
           </p>
         </header>

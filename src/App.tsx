@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import type { GameState, World } from './types/game'
+import type { GameState, World, Character } from './types/game'
 import WorldSelection from './components/WorldSelection'
 import CharacterCreation from './components/CharacterCreation'
+import PartyGeneration from './components/PartyGeneration'
 import GameScreen from './components/GameScreen'
 import './App.css'
 
@@ -20,10 +21,21 @@ function App() {
     }));
   };
 
-  const handleCharacterCreated = (character: any) => {
+  const handleCharacterCreated = (character: Character) => {
     setGameState(prev => ({
       ...prev,
       playerCharacter: character,
+      gamePhase: 'party-generation'
+    }));
+  };
+
+  const handlePartyGenerated = (party: Character[]) => {
+    setGameState(prev => ({
+      ...prev,
+      currentParty: {
+        id: `party-${Date.now()}`,
+        members: party
+      },
       gamePhase: 'gameplay'
     }));
   };
@@ -48,6 +60,14 @@ function App() {
           <CharacterCreation 
             world={gameState.currentWorld}
             onCharacterCreated={handleCharacterCreated}
+          />
+        )}
+
+        {gameState.gamePhase === 'party-generation' && gameState.currentWorld && gameState.playerCharacter && (
+          <PartyGeneration
+            playerCharacter={gameState.playerCharacter}
+            world={gameState.currentWorld}
+            onPartyGenerated={handlePartyGenerated}
           />
         )}
 

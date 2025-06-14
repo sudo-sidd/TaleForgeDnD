@@ -113,9 +113,11 @@ export interface GameState {
   currentWorld?: World;
   currentParty?: Party;
   playerCharacter?: Character;
+  currentQuest?: Quest;
   gamePhase: 'world-selection' | 'character-creation' | 'party-generation' | 'gameplay';
   narrative: string[];
   availableActions: string[];
+  rollHistory?: DiceRoll[];
 }
 
 // API Response types
